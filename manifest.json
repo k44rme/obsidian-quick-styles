@@ -1,11 +1,11 @@
 {
-	"id": "sample-plugin",
-	"name": "Sample Plugin",
-	"version": "1.0.0",
-	"minAppVersion": "1.0.0",
-	"description": "Demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"id": "k44rme.obsidian-quick-styles",
+	"name": "Quick Styles",
+	"version": "0.1.0",
+	"minAppVersion": "1.7.2",
+	"description": "Write and manage your snippets within obsidian vault",
+	"author": "K44rme",
+	"authorUrl": "https://github.com/k44rme/",
+	"fundingUrl": "https://www.donationalerts.com/r/k44rme",
 	"isDesktopOnly": false
 }

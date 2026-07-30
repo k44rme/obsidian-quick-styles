@@ -1,15 +1,15 @@
-import { App, PluginSettingTab, Setting } from 'obsidian';
+/* import { App, PluginSettingTab, Setting } from 'obsidian';
 import MyPlugin from './main';
 
-export interface MyPluginSettings {
+export interface QuickStylesSettings {
 	mySetting: string;
 }
 
-export const DEFAULT_SETTINGS: MyPluginSettings = {
+export const DEFAULT_SETTINGS: QuickStylesSettings = {
 	mySetting: 'default',
 };
 
-export class SampleSettingTab extends PluginSettingTab {
+export class QuickStylesTab extends PluginSettingTab {
 	plugin: MyPlugin;
 
 	constructor(app: App, plugin: MyPlugin) {
@@ -35,4 +35,4 @@ export class SampleSettingTab extends PluginSettingTab {
 					}),
 			);
 	}
-}
+} */

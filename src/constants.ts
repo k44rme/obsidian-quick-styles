@@ -1,0 +1,1 @@
+export const VIEW_TYPE_STYLES_TAB = 'Quick Styles'

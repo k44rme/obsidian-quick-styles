@@ -6,3 +6,32 @@ available in the app when your plugin is enabled.
 If your plugin does not need CSS, delete this file.
 
 */
+
+.style-page {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 0 auto;
+    gap: 25px;
+
+    > .css-area {
+        height: 300px;
+        border: 3px solid var(--color-base-30);
+        border-radius: 7px;
+    }
+
+    > h2 {
+        text-align: center;
+        font-size: xxx-large;
+    }
+
+    > .style-saver {
+        width: fit-content;
+        transition: background-color .3s;
+        align-self: flex-end;
+    }
+
+    > .style-saver:hover {
+        background-color: var(--text-accent);
+    }
+}
