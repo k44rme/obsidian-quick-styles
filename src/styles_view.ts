@@ -30,19 +30,32 @@ export default class StylesView extends ItemView {
             placeholder: "Type the snippet name without .css"
 		});
 		const styles_area = container.createEl('textarea', { cls: 'css-area', text: ".something {\n\tcolor: #fff;\n}" });
+		const select = container.createEl("select")
+
+		select.createEl("option", { value: "overwrite", text: "Overwrite whole file" })
+		select.createEl("option", { value: "append", text: "Append content" })
 
 		const btn = container.createEl('button', { cls: 'style-saver', text: 'Save' });
 		btn.on('click', 'button', async () => {
 			const path = this.getSnippetPath(snippet_name.value);
             const adapter = this.app.vault.adapter;
 
-            if (await adapter.exists(path)) {
-                await adapter.append(path.normalize(), styles_area.value);
-            } else {
-                await adapter.write(path, styles_area.value);
-            }
+			if (snippet_name.value == "") {
+				new Notice("Type the snippet name!!!", 1000);
+				return;
+			}
 
-            new Notice("Snippets saved!", 3000)
+			if (select.value == "append") {
+				if (await adapter.exists(path)) {
+					await adapter.append(path.normalize(), styles_area.value);
+				} else {
+					await adapter.write(path, styles_area.value);
+				}
+			} else {
+				await adapter.write(path, styles_area.value)
+			}
+
+            new Notice("Snippet has been saved!", 3000)
 		});
 	}
 
