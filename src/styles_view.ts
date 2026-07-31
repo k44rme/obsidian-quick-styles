@@ -1,8 +1,12 @@
 import { IconName, ItemView, WorkspaceLeaf } from 'obsidian';
 import { VIEW_TYPE_STYLES_TAB } from './constants';
 import { Notice } from 'obsidian';
+import QuickStylesPlugin from './main';
+import { QuickStylesSettings } from './settings';
 
 export default class StylesView extends ItemView {
+	plugin!: QuickStylesPlugin;
+
 	constructor(leaf: WorkspaceLeaf) {
 		super(leaf);
 	}
@@ -20,10 +24,14 @@ export default class StylesView extends ItemView {
 	}
 
 	protected async onOpen(): Promise<void> {
+
 		const container = this.contentEl;
 		container.empty();
 		container.addClass('style-page');
-		container.createEl('h2', { text: 'Quick styles' });
+		const header = container.createEl('h2', { text: 'Quick styles' });
+		const get_header_size = async () => this.plugin.loadData().then((value) => { return value.header_size } )
+		const size = get_header_size.toString()
+		header.dataset.size = size
 
 		const snippet_name = container.createEl('input', {
 			cls: 'snippet-name',

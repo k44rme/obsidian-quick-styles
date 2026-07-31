@@ -1,14 +1,14 @@
 import { Plugin, WorkspaceLeaf } from 'obsidian';
 import { VIEW_TYPE_STYLES_TAB } from './constants';
 import StylesView from './styles_view';
-import { DEFAULT_SETTINGS, QuickStylesSettingsTab } from './settings';
+import { DEFAULT_SETTINGS, QuickStylesSettings, QuickStylesSettingsTab } from './settings';
 
 export default class QuickStylesPlugin extends Plugin {
-	settings: QuickStylesSettingsTab;
+	settings!: Partial<QuickStylesSettings>;
 
-	constructor()
-
-	onload() {
+	async onload() {
+		await this.loadSettings();
+		this.addSettingTab(new QuickStylesSettingsTab(this.app, this))
 		this.registerExtensions(['css'], VIEW_TYPE_STYLES_TAB);
 		this.registerView(VIEW_TYPE_STYLES_TAB, (leaf) => new StylesView(leaf));
 
@@ -52,8 +52,16 @@ export default class QuickStylesPlugin extends Plugin {
 		this.settings = Object.assign(
 			{},
 			DEFAULT_SETTINGS,
-			await this.loadData(),
-		);
+			await this.loadData()
+		)
+	}
+
+	public async loadData(): Promise<Partial<QuickStylesSettings>> {
+		return await this.loadData()
+	}
+
+	public async saveData(data: Partial<QuickStylesSettings> | Promise<Partial<QuickStylesSettings>>): Promise<void> {
+		await this.saveData(data)
 	}
 
 	async saveSettings() {

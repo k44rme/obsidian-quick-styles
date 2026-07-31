@@ -31,19 +31,26 @@ If your plugin does not need CSS, delete this file.
 
     > h2 {
         text-align: center;
+    }
+    
+    > h2[data-size="1"] {
         font-size: xxx-large;
     }
 
-    > h2[data-size="1"] {
+    > h2[data-size="2"] {
         font-size: xx-large;
     }
 
-    > h2[data-size="2"] {
+    > h2[data-size="3"] {
         font-size: x-large;
     }
 
-    > h2[data-size="3"] {
+    > h2[data-size="4"] {
         font-size: larger;
+    }
+
+    > h2[data-size="5"] {
+        font-size: large;
     }
 
     > .style-saver {
