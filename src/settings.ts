@@ -1,18 +1,18 @@
-/* import { App, PluginSettingTab, Setting } from 'obsidian';
-import MyPlugin from './main';
+import { App, PluginSettingTab, Setting } from 'obsidian';
+import QuickStylesPlugin from './main';
 
 export interface QuickStylesSettings {
-	mySetting: string;
+	header_size: number
 }
 
 export const DEFAULT_SETTINGS: QuickStylesSettings = {
-	mySetting: 'default',
+	header_size: 0,
 };
 
-export class QuickStylesTab extends PluginSettingTab {
-	plugin: MyPlugin;
+export class QuickStylesSettingsTab extends PluginSettingTab {
+	plugin: QuickStylesPlugin;
 
-	constructor(app: App, plugin: MyPlugin) {
+	constructor(app: App, plugin: QuickStylesPlugin) {
 		super(app, plugin);
 		this.plugin = plugin;
 	}
@@ -35,4 +35,4 @@ export class QuickStylesTab extends PluginSettingTab {
 					}),
 			);
 	}
-} */
+}

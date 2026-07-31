@@ -34,6 +34,18 @@ If your plugin does not need CSS, delete this file.
         font-size: xxx-large;
     }
 
+    > h2[data-size="1"] {
+        font-size: xx-large;
+    }
+
+    > h2[data-size="2"] {
+        font-size: x-large;
+    }
+
+    > h2[data-size="3"] {
+        font-size: larger;
+    }
+
     > .style-saver {
         width: fit-content;
         transition: background-color .3s;
@@ -43,4 +55,8 @@ If your plugin does not need CSS, delete this file.
     > .style-saver:hover {
         background-color: var(--text-accent);
     }
+}
+
+.disable {
+    display: none;
 }

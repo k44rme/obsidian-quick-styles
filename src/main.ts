@@ -1,8 +1,13 @@
 import { Plugin, WorkspaceLeaf } from 'obsidian';
 import { VIEW_TYPE_STYLES_TAB } from './constants';
 import StylesView from './styles_view';
+import { DEFAULT_SETTINGS, QuickStylesSettingsTab } from './settings';
 
 export default class QuickStylesPlugin extends Plugin {
+	settings: QuickStylesSettingsTab;
+
+	constructor()
+
 	onload() {
 		this.registerExtensions(['css'], VIEW_TYPE_STYLES_TAB);
 		this.registerView(VIEW_TYPE_STYLES_TAB, (leaf) => new StylesView(leaf));
@@ -43,4 +48,15 @@ export default class QuickStylesPlugin extends Plugin {
 		await workspace.revealLeaf(leaf);
 	}
 
+	async loadSettings() {
+		this.settings = Object.assign(
+			{},
+			DEFAULT_SETTINGS,
+			await this.loadData(),
+		);
+	}
+
+	async saveSettings() {
+		await this.saveData(this.settings);
+	}
 }
