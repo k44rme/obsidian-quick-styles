@@ -2,7 +2,6 @@ import { IconName, ItemView, WorkspaceLeaf } from 'obsidian';
 import { VIEW_TYPE_STYLES_TAB } from './constants';
 import { Notice } from 'obsidian';
 import QuickStylesPlugin from './main';
-import { QuickStylesSettings } from './settings';
 
 export default class StylesView extends ItemView {
 	plugin!: QuickStylesPlugin;
@@ -28,11 +27,9 @@ export default class StylesView extends ItemView {
 		const container = this.contentEl;
 		container.empty();
 		container.addClass('style-page');
-		const header = container.createEl('h2', { text: 'Quick styles' });
-		const get_header_size = async () => this.plugin.loadData().then((value) => { return value.header_size } )
-		const size = get_header_size.toString()
-		header.dataset.size = size
-
+		const header = container.createEl('h2', { text: 'Quick styles', cls: 'quick-styles-header' });
+		header.dataset.size = "1"
+		
 		const snippet_name = container.createEl('input', {
 			cls: 'snippet-name',
             placeholder: "Type the snippet name without .css"
@@ -62,7 +59,7 @@ export default class StylesView extends ItemView {
 			} else {
 				await adapter.write(path, styles_area.value)
 			}
-
+			
             new Notice("Snippet has been saved!", 3000)
 		});
 	}

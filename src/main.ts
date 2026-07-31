@@ -1,14 +1,18 @@
 import { Plugin, WorkspaceLeaf } from 'obsidian';
 import { VIEW_TYPE_STYLES_TAB } from './constants';
 import StylesView from './styles_view';
-import { DEFAULT_SETTINGS, QuickStylesSettings, QuickStylesSettingsTab } from './settings';
+import {
+	DEFAULT_SETTINGS,
+	QuickStylesSettings,
+	QuickStylesSettingsTab,
+} from './settings';
 
 export default class QuickStylesPlugin extends Plugin {
 	settings!: Partial<QuickStylesSettings>;
 
 	async onload() {
 		await this.loadSettings();
-		this.addSettingTab(new QuickStylesSettingsTab(this.app, this))
+		this.addSettingTab(new QuickStylesSettingsTab(this.app, this));
 		this.registerExtensions(['css'], VIEW_TYPE_STYLES_TAB);
 		this.registerView(VIEW_TYPE_STYLES_TAB, (leaf) => new StylesView(leaf));
 
@@ -46,25 +50,43 @@ export default class QuickStylesPlugin extends Plugin {
 
 		// leaf is non-null here
 		await workspace.revealLeaf(leaf);
+
+		const view = leaf.view;
+		const container = view.containerEl;
+		const header = container.querySelector(
+			'.quick-styles-header',
+		) as HTMLElement;
+
+		await this.loadSettings();
+		const size = this.settings.header_size;
+		header.dataset.size = size;
 	}
 
 	async loadSettings() {
-		this.settings = Object.assign(
-			{},
-			DEFAULT_SETTINGS,
-			await this.loadData()
-		)
-	}
-
-	public async loadData(): Promise<Partial<QuickStylesSettings>> {
-		return await this.loadData()
-	}
-
-	public async saveData(data: Partial<QuickStylesSettings> | Promise<Partial<QuickStylesSettings>>): Promise<void> {
-		await this.saveData(data)
+		try {
+			this.settings = Object.assign(
+				{},
+				DEFAULT_SETTINGS,
+				await this.loadData(),
+			) as Partial<QuickStylesSettings>;
+		} catch (e) {
+			console.error('Failed to load settings, using defaults', e);
+			this.settings = { ...DEFAULT_SETTINGS };
+		}
 	}
 
 	async saveSettings() {
-		await this.saveData(this.settings);
+		try {
+			await this.saveData(this.settings);
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+	edit_header() {
+        const header = document.querySelector('.quick-styles-header') as HTMLElement;
+        if (header) {
+            header.dataset.size = this.settings.header_size || "1";
+        }
 	}
 }

@@ -22,6 +22,10 @@ If your plugin does not need CSS, delete this file.
         resize: vertical;
     }
 
+    > h2[data-size="6"] ~ .snippet-name {
+        margin-top: 30px;
+    }
+
     > .snippet-name {
         padding: 5px 3px;
         border-radius: 10px;
@@ -51,6 +55,10 @@ If your plugin does not need CSS, delete this file.
 
     > h2[data-size="5"] {
         font-size: large;
+    }
+
+    > h2[data-size="6"] {
+        display: none;
     }
 
     > .style-saver {
