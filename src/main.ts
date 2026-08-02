@@ -17,7 +17,7 @@ export default class QuickStylesPlugin extends Plugin {
 		this.registerView(VIEW_TYPE_STYLES_TAB, (leaf) => new StylesView(leaf));
 
 		this.addCommand({
-			id: 'open-quick-styles-tab',
+			id: 'open-tab',
 			name: 'Open styles tab',
 			callback: () => this.activateView(),
 		});
@@ -25,6 +25,8 @@ export default class QuickStylesPlugin extends Plugin {
 		this.addRibbonIcon('scroll-text', 'Open styles tab', () =>
 			this.activateView(),
 		);
+
+		await this.refreshStylesView();
 	}
 
 	async activateView() {
@@ -50,16 +52,6 @@ export default class QuickStylesPlugin extends Plugin {
 
 		// leaf is non-null here
 		await workspace.revealLeaf(leaf);
-
-		const view = leaf.view;
-		const container = view.containerEl;
-		const header = container.querySelector(
-			'.quick-styles-header',
-		) as HTMLElement;
-
-		await this.loadSettings();
-		const size = this.settings.header_size;
-		header.dataset.size = size;
 	}
 
 	async loadSettings() {
@@ -83,10 +75,13 @@ export default class QuickStylesPlugin extends Plugin {
 		}
 	}
 
-	edit_header() {
-        const header = document.querySelector('.quick-styles-header') as HTMLElement;
-        if (header) {
-            header.dataset.size = this.settings.header_size || "1";
-        }
+	async refreshStylesView() {
+		const leaves = this.app.workspace.getLeavesOfType(VIEW_TYPE_STYLES_TAB);
+		for (const leaf of leaves) {
+			const view = leaf.view as StylesView;
+			if (view && 'refresh' in view) {
+				await view.refresh();
+			}
+		}
 	}
 }

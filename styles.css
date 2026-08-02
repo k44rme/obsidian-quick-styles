@@ -14,12 +14,43 @@ If your plugin does not need CSS, delete this file.
     margin: 0 auto;
     gap: 25px;
 
-    > .css-area {
+    > .snippet-content {
         height: 300px;
         border: 3px solid var(--color-base-30);
         border-radius: 7px;
         width: auto;
         resize: vertical;
+    }
+
+    >  .snippets-suggestion-container.open {
+        height: 75px;
+        overflow-y: auto;
+        width: auto;
+        display: flex;
+        position: relative;
+        background-color: var(--background-secondary-alt);
+        flex-direction: column;
+        border-radius: 10px;
+        top: -30px;
+        transition: display .3s allow-discrete;
+        resize: vertical;
+
+        > .snippet-suggestion {
+            --p-y: 3px;
+            padding-left: 20px;
+            margin-top: 5px;
+            padding-top: var(--p-y);
+            padding-bottom: var(--p-y);
+        }
+
+        > .snippet-suggestion:hover {
+            background-color: var(--background-primary);
+            border-radius: 10px;
+        }
+    }
+
+    > .snippets-suggestion-container {
+        display: none;
     }
 
     > h2[data-size="6"] ~ .snippet-name {

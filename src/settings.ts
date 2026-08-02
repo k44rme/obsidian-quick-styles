@@ -1,4 +1,4 @@
-import { App, PluginSettingTab, Setting } from 'obsidian';
+import { App, debounce, PluginSettingTab, Setting } from 'obsidian';
 import QuickStylesPlugin from './main';
 
 export interface QuickStylesSettings {
@@ -32,20 +32,23 @@ export class QuickStylesSettingsTab extends PluginSettingTab {
 
 				const val = this.plugin.settings.header_size || '1';
 				dropdown
-					.setValue(val)
 					.addOption('1', 'Largest')
 					.addOption('2', 'Larger')
 					.addOption('3', 'Normal')
 					.addOption('4', 'Smaller')
 					.addOption('5', 'Smallest')
 					.addOption('6', 'Invisible')
+					.setValue(val)
 					.onChange(async (value) => {
 						this.plugin.settings.header_size = value;
 						await this.plugin.saveSettings();
 
-						const header = document.querySelector(".quick-styles-header") as HTMLElement;
+						const header = document.querySelector(
+							'.quick-styles-header',
+						) as HTMLElement;
 						if (header) {
-							header.dataset.size = this.plugin.settings.header_size
+							header.dataset.size =
+								this.plugin.settings.header_size;
 						}
 					});
 			});

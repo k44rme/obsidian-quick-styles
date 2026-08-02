@@ -1,9 +1,9 @@
 {
 	"id": "quick-styles",
 	"name": "Quick Styles",
-	"version": "0.1.2",
+	"version": "0.1.3",
 	"minAppVersion": "1.7.2",
-	"description": "Write and manage your snippets within obsidian vault",
+	"description": "Write and manage your snippets within the vault",
 	"author": "K44rme",
 	"authorUrl": "https://github.com/k44rme/",
 	"fundingUrl": "https://www.donationalerts.com/r/k44rme",
