@@ -1,12 +1,14 @@
-import { App, debounce, PluginSettingTab, Setting } from 'obsidian';
+import { App, debounce, Notice, PluginSettingTab, Setting } from 'obsidian';
 import QuickStylesPlugin from './main';
 
 export interface QuickStylesSettings {
 	header_size: string;
+	suggester_height: number;
 }
 
 export const DEFAULT_SETTINGS: Partial<QuickStylesSettings> = {
 	header_size: '1',
+	suggester_height: 75,
 };
 
 export class QuickStylesSettingsTab extends PluginSettingTab {
@@ -49,6 +51,35 @@ export class QuickStylesSettingsTab extends PluginSettingTab {
 						if (header) {
 							header.dataset.size =
 								this.plugin.settings.header_size;
+						}
+					});
+			});
+
+		new Setting(containerEl)
+			.setName('Snippet suggester height')
+			.setDesc(
+				`Changes default snippet suggester's height. The '0' value will change it to the fit-content property`,
+			)
+			.addSlider(async (slider) => {
+				await this.plugin.loadSettings();
+				slider
+					.setLimits(0, 500, 5)
+					.setValue(this.plugin.settings.suggester_height || 0)
+					.onChange(async (val) => {
+						this.plugin.settings.suggester_height = val;
+
+						await this.plugin.saveSettings();
+
+						const suggestion_container = document.querySelector(
+							'.snippets-suggestion-container.open',
+						) as HTMLDivElement;
+						if (suggestion_container) {
+							suggestion_container.dataset.height =
+								this.plugin.settings.suggester_height.toString();
+	
+							if (this.plugin.settings.suggester_height == 0) {
+								suggestion_container.dataset.height = 'fit-content';
+							}
 						}
 					});
 			});

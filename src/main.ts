@@ -26,7 +26,6 @@ export default class QuickStylesPlugin extends Plugin {
 			this.activateView(),
 		);
 
-		await this.refreshStylesView();
 	}
 
 	async activateView() {
@@ -52,6 +51,18 @@ export default class QuickStylesPlugin extends Plugin {
 
 		// leaf is non-null here
 		await workspace.revealLeaf(leaf);
+
+		await this.loadSettings();
+
+		if (this.settings.header_size != '1') {
+			const header = leaf.view.containerEl.querySelector(
+				'[data-size]',
+			) as HTMLElement;
+			console.error(header)
+			if (header) {
+				header.dataset.size = this.settings.header_size;
+			}
+		}
 	}
 
 	async loadSettings() {

@@ -29,7 +29,7 @@ export default class StylesView extends ItemView {
 		container.createEl('h2', {
 			text: 'Quick styles',
 			cls: 'quick-styles-header',
-		});
+		}).dataset.size = '1';
 
 		const snippet_name: HTMLInputElement = container.createEl('input', {
 			cls: 'snippet-name',
@@ -40,7 +40,7 @@ export default class StylesView extends ItemView {
 			cls: 'snippets-suggestion-container',
 		});
 
-		const path = await this.app.vault.adapter.list(
+		const list = await this.app.vault.adapter.list(
 			`${this.app.vault.configDir}/snippets`,
 		);
 
@@ -53,7 +53,7 @@ export default class StylesView extends ItemView {
 				snippets.removeClass('open');
 			});
 
-		for (const file of path.files) {
+		for (const file of list.files) {
 			let name = file
 				.split(`${this.app.vault.configDir}/snippets`)
 				.pop()
@@ -93,30 +93,18 @@ export default class StylesView extends ItemView {
 			text: 'Save',
 		});
 
-		const content = await this.app.vault.adapter.read(`${this.app.vault.configDir}/snippets/${snippet_name.value}`)
-		snippet_name.addEventListener("change", () => {
-			if (path.files.contains(snippet_name.value)) {
-				styles_area.value = content;
-			}
-
-		})
-
 		btn.on('click', 'button', async () => {
-			const path = `${this.app.vault.configDir}/snippets`;
+			const path = `${this.app.vault.configDir}/snippets/${snippet_name.value}`;
 			const adapter = this.app.vault.adapter;
 
-			if (!(await adapter.exists(path))) {
-				await adapter.mkdir(path);
-			}
-
 			if (snippet_name.value == '') {
-				new Notice('Type the snippet name!!!', 1000);
+				new Notice('Type the snippet name!', 1500);
 				return;
 			}
 
 			if (select.value == 'append') {
 				if (await adapter.exists(path)) {
-					await adapter.append(path.normalize(), styles_area.value);
+					await adapter.append(path, styles_area.value);
 				} else {
 					await adapter.write(path, styles_area.value);
 				}
@@ -126,7 +114,7 @@ export default class StylesView extends ItemView {
 			
 			new Notice('Snippet has been saved!', 3000);
 		});
-		
+
 	}
 	
 	private getSnippetPath(name: string): string {

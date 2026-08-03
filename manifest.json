@@ -1,7 +1,7 @@
 {
 	"id": "quick-styles",
 	"name": "Quick Styles",
-	"version": "0.1.3",
+	"version": "0.1.4",
 	"minAppVersion": "1.7.2",
 	"description": "Write and manage your snippets within the vault",
 	"author": "K44rme",

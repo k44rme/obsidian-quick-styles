@@ -23,7 +23,7 @@ If your plugin does not need CSS, delete this file.
     }
 
     >  .snippets-suggestion-container.open {
-        height: 75px;
+        height: attr(data-height px, fit-content);
         overflow-y: auto;
         width: auto;
         display: flex;
@@ -33,7 +33,6 @@ If your plugin does not need CSS, delete this file.
         border-radius: 10px;
         top: -30px;
         transition: display .3s allow-discrete;
-        resize: vertical;
 
         > .snippet-suggestion {
             --p-y: 3px;
@@ -46,6 +45,10 @@ If your plugin does not need CSS, delete this file.
         > .snippet-suggestion:hover {
             background-color: var(--background-primary);
             border-radius: 10px;
+        }
+
+        :last-child {
+            margin-bottom: 10px;
         }
     }
 
